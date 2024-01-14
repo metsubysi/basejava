@@ -9,6 +9,7 @@ public class ArrayStorage {
 
     void clear() {
         Arrays.fill(storage, null);
+        size = 0;
     }
 
     void save(Resume r) {
@@ -17,6 +18,11 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].toString().equals(uuid)) {
+                return storage[i];
+            }
+        }
         return null;
     }
 
