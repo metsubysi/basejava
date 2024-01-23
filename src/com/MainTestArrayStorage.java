@@ -1,3 +1,8 @@
+package com;
+
+import com.array.ArrayStorage;
+import com.resume.Resume;
+
 /**
  * Test for your ArrayStorage implementation
  */

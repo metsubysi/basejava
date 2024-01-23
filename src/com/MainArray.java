@@ -1,3 +1,8 @@
+package com;
+
+import com.array.ArrayStorage;
+import com.resume.Resume;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
