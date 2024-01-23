@@ -41,6 +41,7 @@ public class ArrayStorage {
         if (isElementPresent(uuid)) {
             for (int i = 0; i < (size - 1); i++) {
                 if (storage[i].toString().equals(uuid)) {
+                    size--;
                     storage[i] = storage[size];
                     storage[size] = null;
                     break;
