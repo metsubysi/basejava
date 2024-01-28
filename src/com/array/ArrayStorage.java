@@ -8,7 +8,9 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
+
+    int STORAGE_LIMIT = 10000;
+    Resume[] storage = new Resume[STORAGE_LIMIT];
     int size;
 
     public void clear() {
@@ -23,30 +25,21 @@ public class ArrayStorage {
         } else {
             System.out.println("The storagacan contain up to 10000 rows");
         }
-        isElementPresent(r.toString());
+        isExisting(r.toString());
     }
 
     public Resume get(String uuid) {
-        if (isElementPresent(uuid)) {
-            for (int i = 0; i < size; i++) {
-                if (storage[i].toString().equals(uuid)) {
-                    return storage[i];
-                }
-            }
+        if (isExisting(uuid)) {
+            return storage[getIndex(uuid)];
         }
         return null;
     }
 
     public void delete(String uuid) {
-        if (isElementPresent(uuid)) {
-            for (int i = 0; i < (size - 1); i++) {
-                if (storage[i].toString().equals(uuid)) {
-                    size--;
-                    storage[i] = storage[size];
-                    storage[size] = null;
-                    break;
-                }
-            }
+        if (isExisting(uuid)) {
+            size--;
+            storage[getIndex(uuid)] = storage[size];
+            storage[size] = null;
         }
     }
 
@@ -63,21 +56,23 @@ public class ArrayStorage {
 
     public void update(Resume resume) {
         String uuid = resume.toString();
-        if (isElementPresent(uuid)) {
-            for (int i = 0; i < (size - 1); i++) {
-                if (storage[i].toString().equals(uuid)) {
-                    storage[i] = resume;
-                    break;
-                }
-            }
+        if (isExisting(uuid)) {
+            storage[getIndex(uuid)] = resume;
         }
     }
 
-    boolean isElementPresent(String uuid) {
-        for (int i = 0; i < (size - 1); i++) {
+    int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
             if (storage[i].toString().equals(uuid)) {
-                return true;
+                return i;
             }
+        }
+        return -1;
+    }
+
+    boolean isExisting(String uuid) {
+        if (getIndex(uuid) > -1) {
+            return true;
         }
         System.out.println("The resume " + uuid + " is not present in the storage");
         return false;
