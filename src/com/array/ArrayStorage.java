@@ -9,9 +9,9 @@ import java.util.Arrays;
  */
 public class ArrayStorage {
 
-    int STORAGE_LIMIT = 10000;
-    Resume[] storage = new Resume[STORAGE_LIMIT];
-    int size;
+    protected final int STORAGE_LIMIT = 10000;
+    protected  final Resume[] storage = new Resume[STORAGE_LIMIT];
+    protected int size;
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -19,24 +19,28 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        if (size <10000) {
+        int i = getIndex(r.toString());
+        if (size >= STORAGE_LIMIT) {
+            System.out.println("The storage can't contain up to " + STORAGE_LIMIT + " rows");
+        } else if (i > -1) {
+            System.out.println("This storage contain this resume");
+        } else {
             storage[size] = r;
             size++;
-        } else {
-            System.out.println("The storagacan contain up to 10000 rows");
         }
-        isExisting(r.toString());
     }
 
     public Resume get(String uuid) {
-        if (isExisting(uuid)) {
+        int i = getIndex(uuid);
+        if (isExisting(i)) {
             return storage[getIndex(uuid)];
         }
         return null;
     }
 
     public void delete(String uuid) {
-        if (isExisting(uuid)) {
+        int i = getIndex(uuid);
+        if (isExisting(i)) {
             size--;
             storage[getIndex(uuid)] = storage[size];
             storage[size] = null;
@@ -55,9 +59,10 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
+        int i = getIndex(resume.toString());
         String uuid = resume.toString();
-        if (isExisting(uuid)) {
-            storage[getIndex(uuid)] = resume;
+        if (isExisting(i)) {
+            storage[i] = resume;
         }
     }
 
@@ -70,11 +75,11 @@ public class ArrayStorage {
         return -1;
     }
 
-    boolean isExisting(String uuid) {
-        if (getIndex(uuid) > -1) {
+    boolean isExisting(int i) {
+        if (i > -1) {
             return true;
         }
-        System.out.println("The resume " + uuid + " is not present in the storage");
+        System.out.println("This resume is not present in the storage");
         return false;
     }
 }
