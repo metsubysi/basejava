@@ -1,7 +1,8 @@
 package com;
 
-import com.array.ArrayStorage;
-import com.resume.Resume;
+import com.storage.ArrayStorage;
+import com.model.Resume;
+import com.storage.SortedArrayStorage;
 
 /**
  * Test for your ArrayStorage implementation
