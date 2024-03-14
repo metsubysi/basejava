@@ -7,42 +7,27 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage{
 
     @Override
-    public void differSave(Resume r) {
-        int insertIndex = searchOfIndex(storage, r.getUuid(), size);
-        Resume[] newStorage = new Resume[storage.length];
-        System.arraycopy(storage, 0, newStorage, 0, insertIndex);
-        newStorage[insertIndex] = r;
-        System.arraycopy(storage, insertIndex, newStorage, insertIndex + 1, size - insertIndex);
-        size++;
-        storage =  newStorage;
+    public void saveResume(Resume r) {
+        int insertIndex = Arrays.binarySearch(storage, 0, size, r);
+        if (insertIndex < 0) {
+            insertIndex = -(insertIndex + 1);
+        }
+        for (int i = size; i > insertIndex; i--) {
+            storage[i] = storage[i - 1];
+        }
+        storage[insertIndex] = r; 
     }
 
+
     @Override
-    public void differDelete(int index) {
-        Resume[] newArray = new Resume[size - 1];
-        System.arraycopy(storage, 0, newArray, 0, index);
-        System.arraycopy(storage, index + 1, newArray, index, size - index - 1);
-        storage = newArray;
+    public void deleteResume(int index) {
+        for (int i = index; i < size - 1; i++) {
+            storage[i] = storage[i + 1];
+        }
     }
     @Override
     protected int getIndex(String uuid) {
-        Resume searchKey = new Resume();
-        searchKey.setUuid(uuid);
+        Resume searchKey = new Resume(uuid);
         return Arrays.binarySearch(storage, 0, size, searchKey);
-    }
-
-    private static int searchOfIndex(Resume[] storage, String uuid, int size) {
-        int left = 0;
-        int right = size;
-        while (left < right) {
-            int mid = left + (right - left) / 2;
-            if (storage[mid].getUuid().compareTo(uuid) < 0) {
-                left = mid + 1;
-            } else {
-                right = mid;
-            }
-        }
-        System.out.println(left+"fff");
-        return left;
     }
 }

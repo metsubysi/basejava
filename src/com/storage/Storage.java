@@ -2,7 +2,7 @@ package com.storage;
 
 import com.model.Resume;
 
-public interface Storage {
+public interface   Storage {
 
     void clear();
 
