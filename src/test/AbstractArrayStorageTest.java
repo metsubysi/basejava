@@ -1,4 +1,4 @@
-package com.test;
+package test;
 
 import com.exception.ExistStorageException;
 import com.exception.NotExistStorageException;
@@ -10,14 +10,20 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractArrayStorageTest {
     private final Storage storage;
-    Resume r1 = new Resume("uuid1");
-    Resume r2 = new Resume("uuid2");
-    Resume r3 = new Resume("uuid3");
-    Resume r4 = new Resume("uuid4");
+    private final String u1 = "uuid1";
+    private final String u2 = "uuid2";
+    private final String u3 = "uuid3";
+    private final String u4 = "uuid4";
+    private final String d = "dummy";
+    private final Resume r1 = new Resume(u1);
+    private final Resume r2 = new Resume(u2);
+    private final Resume r3 = new Resume(u3);
+    private final Resume r4 = new Resume(u4);
 
     protected AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -37,20 +43,22 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void clear() throws Exception {
+        Storage storage1 = storage;
         storage.clear();
         assertSize(0);
+        assertArrayEquals(storage1.getAll(), storage.getAll());
     }
 
     @Test
     public void update() throws Exception {
-        Resume newResume = new Resume("uuid1");
+        Resume newResume = new Resume(u1);
         storage.update(newResume);
-        assertEquals(newResume, storage.get("uuid1"));
+        assertEquals(newResume, storage.get(u1));
     }
 
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() throws Exception {
-        storage.get("dummy");
+        storage.get(d);
     }
 
     @Test
@@ -88,14 +96,14 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void delete() throws Exception {
-        storage.delete("uuid1");
+        storage.delete(u1);
         assertSize(2);
-        storage.get("uuid1");
+        storage.get(u1);
     }
 
     @Test(expected = NotExistStorageException.class)
     public void deleteNotExist() throws Exception {
-        storage.delete("dummy");
+        storage.delete(d);
     }
 
     @Test
@@ -107,7 +115,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() throws Exception {
-        storage.get("dummy");
+        storage.get(d);
     }
 
     private void assertGet(Resume r) {
