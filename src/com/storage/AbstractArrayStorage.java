@@ -1,7 +1,5 @@
 package com.storage;
 
-import com.exception.ExistStorageException;
-import com.exception.NotExistStorageException;
 import com.exception.StorageException;
 import com.model.Resume;
 
@@ -9,6 +7,7 @@ import java.util.Arrays;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
     public static final int STORAGE_LIMIT = 10000;
+     int size;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
@@ -18,10 +17,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public void save(Resume r) {
-        if (getIndex(r.getUuid()) >= 0) {
-            throw new ExistStorageException(r.getUuid());
-        } else if (size >= STORAGE_LIMIT) {
+    public int size() {
+        return size;
+    }
+    public void save_(Resume r)
+    {
+        if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         } else {
             saveResume(r);
@@ -29,36 +30,32 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            deleteResume(index);
-            storage[size - 1] = null;
-            size--;
-        }
+    public void delete_(Object index)
+    {
+        deleteResume((Integer)index);
+        storage[size - 1] = null;
+        size--;
+
     }
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        }
-        return storage[index];
+    public Resume get_(Object index)
+    {
+        return storage[((Integer) index).intValue()];
     }
 
-    public void update(Resume r) {
-        int index = getIndex(r.getUuid());
-        if (index < 0) {
-            throw new NotExistStorageException(r.getUuid());
-        } else {
-            storage[index] = r;
-        }
+    @Override
+    protected void update_(Resume r, Object index)
+    {
+        storage[(Integer) index] = r;
+    }
+
+    @Override
+    protected boolean isObtain(Object index) {
+        return (Integer) index >= 0;
     }
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
-    protected abstract int getIndex(String uuid);
+    protected abstract Integer getIndex(String uuid);
     abstract void saveResume(Resume r);
     abstract void deleteResume(int i);
 }

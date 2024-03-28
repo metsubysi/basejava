@@ -36,7 +36,7 @@ public class ListStorageTest {
         storage.save(r1);
         storage.save(r2);
         storage.clear();
-        assertEquals(0, storage.size());
+        assertEquals(0, storage.getAll().length);
     }
 
     @Test

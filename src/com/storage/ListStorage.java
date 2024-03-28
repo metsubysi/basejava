@@ -1,6 +1,5 @@
 package com.storage;
 
-import com.exception.NotExistStorageException;
 import com.model.Resume;
 
 import java.util.ArrayList;
@@ -9,46 +8,59 @@ import java.util.List;
 public class ListStorage extends AbstractStorage{
 
     List<Resume> storage = new ArrayList<>();
-    @Override
-    public void clear() {
-        storage.clear();
-        size = 0;
-    }
 
-    @Override
-    public void update(Resume r) {
-        if (get(r.getUuid()) != null) {
-            save(r);
-        } else {
-            throw new NotExistStorageException("Resume " + r.getUuid() + " not found");
-        }
-    }
-
-    @Override
-    public void save(Resume r) {
-        storage.add(r);
-        size++;
-    }
-
-    @Override
-    public Resume get(String uuid) {
-        for (Resume r : storage) {
-            if (r.getUuid().equals(uuid)) {
-                return r;
+    public Integer getIndex(String resumeId)
+    {
+        for (int i = 0; i < storage.size(); i++) {
+            Resume r = storage.get(i);
+            if (r.getUuid().equals(resumeId)) {
+                return i;
             }
         }
-        throw new NotExistStorageException("Resume " + uuid + " not found");
+        return null;
     }
 
     @Override
-    public void delete(String uuid) {
-        Resume r = get(uuid);
-        storage.remove(r);
-        size--;
+    void delete_(Object index)
+    {
+        storage.remove(((Integer) index).intValue());
+    }
+
+    @Override
+    void update_(Resume r, Object index)
+    {
+        storage.set((Integer) index, r);
+    }
+
+    Resume get_(Object index)
+    {
+       return storage.get(((Integer) index));
+    }
+
+    @Override
+    void save_(Resume r) {
+        storage.add(r);
+    }
+
+    public void clear()
+    {
+        storage.clear();
+    }
+
+    @Override
+    protected boolean isObtain(Object index)
+    {
+        return index != null;
     }
 
     @Override
     public Resume[] getAll() {
-        return storage.toArray(new Resume[0]);
+        return storage.toArray(new Resume[storage.size()]);
     }
+
+    @Override
+    public int size() {
+        return storage.size();
+    }
+
 }
