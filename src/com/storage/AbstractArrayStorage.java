@@ -55,7 +55,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
-    protected abstract Integer getIndex(String uuid);
+    protected abstract Integer getIndex_(String uuid);
     abstract void saveResume(Resume r);
     abstract void deleteResume(int i);
 }

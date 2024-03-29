@@ -9,11 +9,11 @@ public class ListStorage extends AbstractStorage{
 
     List<Resume> storage = new ArrayList<>();
 
-    public Integer getIndex(String resumeId)
+    public Object getIndex_(String uuid)
     {
         for (int i = 0; i < storage.size(); i++) {
             Resume r = storage.get(i);
-            if (r.getUuid().equals(resumeId)) {
+            if (r.getUuid().equals(uuid)) {
                 return i;
             }
         }
