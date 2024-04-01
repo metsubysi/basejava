@@ -5,12 +5,11 @@ import com.model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage{
+public class ListStorage extends AbstractStorage {
 
-    List<Resume> storage = new ArrayList<>();
+    private final List<Resume> storage = new ArrayList<>();
 
-    public Object getIndex_(String uuid)
-    {
+    public Object getSearchKey(String uuid) {
         for (int i = 0; i < storage.size(); i++) {
             Resume r = storage.get(i);
             if (r.getUuid().equals(uuid)) {
@@ -21,35 +20,30 @@ public class ListStorage extends AbstractStorage{
     }
 
     @Override
-    void delete_(Object index)
-    {
+    void doDelete(Object index) {
         storage.remove(((Integer) index).intValue());
     }
 
     @Override
-    void update_(Resume r, Object index)
-    {
+    void doUpdate(Resume r, Object index) {
         storage.set((Integer) index, r);
     }
 
-    Resume get_(Object index)
-    {
+    Resume doGet(Object index) {
        return storage.get(((Integer) index));
     }
 
     @Override
-    void save_(Resume r) {
+    void doSave(Resume r) {
         storage.add(r);
     }
 
-    public void clear()
-    {
+    public void clear() {
         storage.clear();
     }
 
     @Override
-    protected boolean isObtain(Object index)
-    {
+    protected boolean isExisting(Object index) {
         return index != null;
     }
 
@@ -62,5 +56,4 @@ public class ListStorage extends AbstractStorage{
     public int size() {
         return storage.size();
     }
-
 }

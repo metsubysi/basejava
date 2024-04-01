@@ -18,15 +18,15 @@ public class SortedArrayStorage extends AbstractArrayStorage{
         storage[insertIndex] = r; 
     }
 
-
     @Override
     public void deleteResume(int index) {
         for (int i = index; i < size - 1; i++) {
             storage[i] = storage[i + 1];
         }
     }
+
     @Override
-    protected Integer getIndex_(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         Resume searchKey = new Resume(uuid);
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }

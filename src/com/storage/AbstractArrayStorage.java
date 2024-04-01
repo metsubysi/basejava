@@ -6,11 +6,11 @@ import com.model.Resume;
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
+
     public static final int STORAGE_LIMIT = 10000;
-     int size;
+    int size;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
-
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -20,8 +20,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     public int size() {
         return size;
     }
-    public void save_(Resume r)
-    {
+
+    public void doSave(Resume r) {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         } else {
@@ -30,32 +30,31 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    public void delete_(Object index)
-    {
+    public void doDelete(Object index) {
         deleteResume((Integer)index);
         storage[size - 1] = null;
         size--;
-
     }
-    public Resume get_(Object index)
-    {
+
+    public Resume doGet(Object index) {
         return storage[((Integer) index).intValue()];
     }
 
     @Override
-    protected void update_(Resume r, Object index)
-    {
+    protected void doUpdate(Resume r, Object index) {
         storage[(Integer) index] = r;
     }
 
     @Override
-    protected boolean isObtain(Object index) {
+    protected boolean isExisting(Object index) {
         return (Integer) index >= 0;
     }
+
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
-    protected abstract Integer getIndex_(String uuid);
+
+    protected abstract Integer getSearchKey(String uuid);
     abstract void saveResume(Resume r);
     abstract void deleteResume(int i);
 }
