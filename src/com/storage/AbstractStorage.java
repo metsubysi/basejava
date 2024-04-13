@@ -4,6 +4,8 @@ import com.exception.ExistStorageException;
 import com.exception.NotExistStorageException;
 import com.model.Resume;
 
+import java.util.*;
+
 public abstract class AbstractStorage implements Storage {
 
     public void delete(String uuid) {
@@ -24,15 +26,16 @@ public abstract class AbstractStorage implements Storage {
 
     public void save(Resume r) {
         String uuid = r.getUuid();
-        getNotExistingSearchKey(uuid);
+        Object Key = getNotExistingSearchKey(uuid);
         doSave(r);
     }
 
-    public void getNotExistingSearchKey(String uuid) {
+    public Object getNotExistingSearchKey(String uuid) {
         Object index = getSearchKey(uuid);
         if (isExisting(index)) {
             throw new ExistStorageException(uuid);
         }
+        return index;
     }
 
     public Object getExistingSearchKey(String uuid) {
@@ -43,10 +46,17 @@ public abstract class AbstractStorage implements Storage {
         return index;
     }
 
+    public List<Resume> getAllSorted() {
+        List<Resume> allResumes = getAll();
+        allResumes.sort(Comparator.comparing(Resume::getUuid).thenComparing(Resume::getUuid));
+        return allResumes;
+    }
+
     abstract void doDelete(Object index);
     abstract void doUpdate(Resume r, Object index);
     abstract void doSave(Resume r);
     abstract Resume doGet(Object index);
+    abstract List<Resume> getAll();
     abstract Object getSearchKey(String uuid);
     abstract boolean isExisting(Object index);
 }

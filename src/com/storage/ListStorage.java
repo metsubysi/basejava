@@ -21,7 +21,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     void doDelete(Object index) {
-        storage.remove(((Integer) index).intValue());
+        storage.remove(0);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return storage.toArray(new Resume[storage.size()]);
+    public List<Resume> getAll() {
+        return new ArrayList<>(storage);
     }
 
     @Override

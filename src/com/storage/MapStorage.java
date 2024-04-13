@@ -2,18 +2,15 @@ package com.storage;
 
 import com.model.Resume;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MapStorage extends AbstractStorage{
 
     private final Map<String, Resume> storage = new HashMap<>();
 
     public Object getSearchKey(String uuid) {
-        for (Map.Entry<String, Resume> entry : storage.entrySet()) {
-            if (entry.getValue().getUuid().equals(uuid)) {
-                return entry.getKey();
-            }
+        if (storage.containsKey(uuid)) {
+            return uuid;
         }
         return null;
     }
@@ -49,9 +46,8 @@ public class MapStorage extends AbstractStorage{
     }
 
     @Override
-    public Resume[] getAll() {
-        Map<String, Resume> resumeMap = new HashMap<>(storage);
-        return resumeMap.values().toArray(new Resume[0]);
+    public List<Resume> getAll() {
+        return new ArrayList<>((Collection) storage);
     }
 
     @Override

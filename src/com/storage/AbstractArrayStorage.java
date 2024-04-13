@@ -4,6 +4,7 @@ import com.exception.StorageException;
 import com.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
@@ -37,7 +38,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     public Resume doGet(Object index) {
-        return storage[((Integer) index).intValue()];
+        return storage[((Integer) index)];
     }
 
     @Override
@@ -50,8 +51,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return (Integer) index >= 0;
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+    public List<Resume> getAll() {
+        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
     }
 
     protected abstract Integer getSearchKey(String uuid);

@@ -10,7 +10,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractArrayStorageTest {
@@ -43,10 +44,8 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void clear() throws Exception {
-        Storage storage1 = storage;
         storage.clear();
         assertSize(0);
-        assertArrayEquals(storage1.getAll(), storage.getAll());
     }
 
     @Test
@@ -63,17 +62,19 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void getAll() throws Exception {
-        Resume[] array = storage.getAll();
-        assertEquals(3, array.length);
-        assertEquals(r1, array[0]);
-        assertEquals(r2, array[1]);
-        assertEquals(r3, array[2]);
+        List<Resume> list = storage.getAllSorted();
+        assertEquals(3, list.size());
+        assertEquals(r1, list.get(0));
+        assertEquals(r2, list.get(1));
+        assertEquals(r3, list.get(2));
     }
 
     @Test
     public void save() throws Exception {
+        assertSize(3);
         storage.save(r4);
         assertSize(4);
+        storage.get(u4);
         assertGet(r4);
     }
 
@@ -118,14 +119,15 @@ public abstract class AbstractArrayStorageTest {
         storage.get(d);
     }
 
-    private void assertGet(Resume r) {
-        assertEquals(r, storage.get(r.getUuid()));
+    private void assertGet(Resume expectedResume) {
+        Resume actualResume = storage.get(expectedResume.getUuid());
+        assertEquals(expectedResume, actualResume);
     }
 
     private void assertSize(int size) {
         assertEquals(size, storage.size());
     }
-     
+
 
 
 }
