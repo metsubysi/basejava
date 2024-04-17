@@ -120,7 +120,7 @@ public abstract class AbstractArrayStorageTest {
     }
 
     private void assertGet(Resume expectedResume) {
-        Resume actualResume = storage.get(expectedResume.getUuid());
+        Resume actualResume = storage.get(expectedResume.getFullName());
         assertEquals(expectedResume, actualResume);
     }
 

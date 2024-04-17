@@ -7,9 +7,9 @@ import com.model.Resume;
  */
 public class ArrayStorage extends AbstractArrayStorage {
 
-    protected Integer getSearchKey(String uuid) {
+    protected Integer getSearchKey(String fullName) {
         for (int i = 0; i < size; i++) {
-            if (uuid.equals(storage[i].getUuid())) {
+            if (fullName.equals(storage[i].getFullName())) {
                 return i;
             }
         }

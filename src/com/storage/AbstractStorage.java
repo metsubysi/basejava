@@ -8,24 +8,27 @@ import java.util.*;
 
 public abstract class AbstractStorage implements Storage {
 
+    private static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName)
+            .thenComparing(Resume::getUuid);
+
     public void delete(String uuid) {
         Object index = getExistingSearchKey(uuid);
         doDelete(index);
     }
 
     public void update(Resume r) {
-        String uuid = r.getUuid();
+        String uuid = r.getFullName();
         Object index = getExistingSearchKey(uuid);
         doUpdate(r, index);
     }
 
-    public Resume get(String uuid) {
-        Object index = getExistingSearchKey(uuid);
+    public Resume get(String fullName) {
+        Object index = getExistingSearchKey(fullName);
         return doGet(index);
     }
 
     public void save(Resume r) {
-        String uuid = r.getUuid();
+        String uuid = r.getFullName();
         Object Key = getNotExistingSearchKey(uuid);
         doSave(r);
     }
@@ -38,17 +41,17 @@ public abstract class AbstractStorage implements Storage {
         return index;
     }
 
-    public Object getExistingSearchKey(String uuid) {
-        Object index = getSearchKey(uuid);
+    public Object getExistingSearchKey(String fullNme) {
+        Object index = getSearchKey(fullNme);
         if (!isExisting(index)) {
-            throw new NotExistStorageException(uuid);
+            throw new NotExistStorageException(fullNme);
         }
         return index;
     }
 
     public List<Resume> getAllSorted() {
         List<Resume> allResumes = getAll();
-        allResumes.sort(Comparator.comparing(Resume::getUuid).thenComparing(Resume::getUuid));
+        allResumes.sort(RESUME_COMPARATOR);
         return allResumes;
     }
 

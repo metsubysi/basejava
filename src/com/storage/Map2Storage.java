@@ -4,30 +4,27 @@ import com.model.Resume;
 
 import java.util.*;
 
-public class MapStorage extends AbstractStorage{
+public class Map2Storage extends AbstractStorage{
 
     private final Map<String, Resume> storage = new HashMap<>();
 
-    public Object getSearchKey(String uuid) {
-        if (storage.containsKey(uuid)) {
-            return uuid;
-        }
-        return null;
+    public Resume getSearchKey(String uuid) {
+        return storage.get(uuid);
     }
 
     @Override
-    void doDelete(Object index) {
-        storage.remove((String) index);
+    void doDelete(Object resume) {
+        storage.remove(((Resume) resume).getFullName());
     }
 
     @Override
     void doUpdate(Resume r, Object index) {
-        storage.put((String) index, r);
+        storage.put(r.getFullName(), r);
     }
 
     @Override
-    Resume doGet(Object index) {
-        return storage.get((String) index);
+    Resume doGet(Object resume) {
+        return (Resume) resume;
     }
 
     @Override
@@ -36,7 +33,7 @@ public class MapStorage extends AbstractStorage{
     }
 
     @Override
-    boolean isExisting(Object index) {
+    boolean isExisting(Object index)  {
         return index != null;
     }
 

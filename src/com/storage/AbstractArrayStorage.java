@@ -55,7 +55,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
     }
 
-    protected abstract Integer getSearchKey(String uuid);
+    protected abstract Integer getSearchKey(String fullName);
     abstract void saveResume(Resume r);
     abstract void deleteResume(int i);
 }

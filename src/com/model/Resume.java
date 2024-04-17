@@ -8,16 +8,17 @@ import java.util.UUID;
 public class Resume implements Comparable<Resume>{
 
     // Unique identifier
-    private final String uuid;
-    private String fullName = "name";
+    private String uuid;
+    private String fullName = "";
 
 
     public Resume() {
         this(UUID.randomUUID().toString());
     }
 
-    public Resume(String uuid){
-        this.uuid = uuid;
+    public Resume(String fullName){
+        this.fullName = fullName;
+        this.uuid = "";
     }
 
     public String getUuid() {
@@ -33,7 +34,7 @@ public class Resume implements Comparable<Resume>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
-        return uuid.equals(resume.uuid);
+        return fullName.equals(resume.fullName);
     }
     @Override
     public int hashCode() {
@@ -41,11 +42,11 @@ public class Resume implements Comparable<Resume>{
     }
     @Override
     public String toString() {
-        return uuid;
+        return fullName;
     }
 
     @Override
     public int compareTo(Resume r) {
-        return uuid.compareTo(r.uuid);
+        return fullName.compareTo(r.fullName);
     }
 }
