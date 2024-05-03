@@ -19,21 +19,17 @@ public class Resume implements Comparable<Resume>{
         EMAIL,
         PHONE,
         SKYPE,
-        HOMEPAGE,
         SOCIAL_MEDIA
     }
 
     public enum SectionsType {
-        CONTACT,
-        POSITION,
+        OBJECTIVE,
         PERSONAL,
         ACHIEVEMENT,
         QUALIFICATIONS,
         EXPERIENCE,
         EDUCATION
     }
-
-
 
     public Resume() {
         this(UUID.randomUUID().toString());
@@ -50,6 +46,22 @@ public class Resume implements Comparable<Resume>{
 
     public String getFullName() {
         return fullName;
+    }
+
+    public void addContact(ContactsType type, String value) {
+        contacts.put(type, value);
+    }
+
+    public String getContact(ContactsType type) {
+        return contacts.get(type);
+    }
+
+    public void addSection(SectionsType type, AbstractSections section) {
+        sections.put(type, section);
+    }
+
+    public AbstractSections getSection(SectionsType type) {
+        return sections.get(type);
     }
 
     @Override

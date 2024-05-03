@@ -58,7 +58,7 @@ public class Period {
         if (o == null || getClass() != o.getClass()) return false;
         Period period = (Period) o;
         return Objects.equals(startDate, period.startDate) &&
-                Objects.equals(endDate, period.endDate) &&
+                 Objects.equals(endDate, period.endDate) &&
                 Objects.equals(description, period.description) &&
                 Objects.equals(position, period.position);
     }
