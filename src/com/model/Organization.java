@@ -53,6 +53,10 @@ public class Organization {
                 Objects.equals(periods, that.periods);
     }
 
+    public String toString() {
+        return title + "\n";
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(title, website, periods);

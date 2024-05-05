@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ListSections extends AbstractSections{
+public class ListSection extends AbstractSection{
     private List<String> strings;
 
-    public ListSections() {
+    public ListSection() {
         this.strings = new ArrayList<>();
     }
 
-    public ListSections(List<String> strings) {
+    public ListSection(List<String> strings) {
         this.strings = strings;
     }
 
@@ -34,7 +34,7 @@ public class ListSections extends AbstractSections{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListSections that = (ListSections) o;
+        ListSection that = (ListSection) o;
         return Objects.equals(strings, that.strings);
     }
 

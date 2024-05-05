@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class OrganizationSections extends AbstractSections{
+public class OrganizationSection extends AbstractSection{
     private List<Organization> organizations;
 
-    public OrganizationSections() {
+    public OrganizationSection() {
         this.organizations = new ArrayList<>();
     }
 
-    public OrganizationSections(List<Organization> organizations) {
+    public OrganizationSection(List<Organization> organizations) {
         this.organizations = organizations;
     }
 
@@ -27,8 +27,19 @@ public class OrganizationSections extends AbstractSections{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrganizationSections that = (OrganizationSections) o;
+        OrganizationSection that = (OrganizationSection) o;
         return Objects.equals(organizations, that.organizations);
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Organization org : organizations) {
+            for (Period period : org.getPeriods()) {
+                sb.append(org.toString()).append("");
+                sb.append(period.toString()).append("\n");
+            }
+        }
+        return sb.toString();
     }
 
     @Override

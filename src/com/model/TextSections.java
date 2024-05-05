@@ -1,6 +1,6 @@
 package com.model;
 
-public class TextSections extends AbstractSections{
+public class TextSections extends AbstractSection{
     private String content;
 
     public TextSections(String content) {

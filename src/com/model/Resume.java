@@ -12,24 +12,8 @@ public class Resume implements Comparable<Resume>{
     // Unique identifier
     private String uuid;
     private String fullName = "";
-    private Map<ContactsType, String> contacts = new HashMap<>();
-    private Map<SectionsType, AbstractSections> sections = new HashMap<>();
-
-    public enum ContactsType {
-        EMAIL,
-        PHONE,
-        SKYPE,
-        SOCIAL_MEDIA
-    }
-
-    public enum SectionsType {
-        OBJECTIVE,
-        PERSONAL,
-        ACHIEVEMENT,
-        QUALIFICATIONS,
-        EXPERIENCE,
-        EDUCATION
-    }
+    private Map<ContactType, String> contacts = new HashMap<>();
+    private Map<SectionType, AbstractSection> sections = new HashMap<>();
 
     public Resume() {
         this(UUID.randomUUID().toString());
@@ -48,19 +32,19 @@ public class Resume implements Comparable<Resume>{
         return fullName;
     }
 
-    public void addContact(ContactsType type, String value) {
+    public void addContact(ContactType type, String value) {
         contacts.put(type, value);
     }
 
-    public String getContact(ContactsType type) {
+    public String getContact(ContactType type) {
         return contacts.get(type);
     }
 
-    public void addSection(SectionsType type, AbstractSections section) {
+    public void addSection(SectionType type, AbstractSection section) {
         sections.put(type, section);
     }
 
-    public AbstractSections getSection(SectionsType type) {
+    public AbstractSection getSection(SectionType type) {
         return sections.get(type);
     }
 

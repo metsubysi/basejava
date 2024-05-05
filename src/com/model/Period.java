@@ -1,11 +1,11 @@
 package com.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Period {
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String description;
     private String position;
 
@@ -13,26 +13,26 @@ public class Period {
         // Default constructor
     }
 
-    public Period(Date startDate, Date endDate, String description, String position) {
+    public Period(LocalDate startDate, LocalDate endDate, String description, String position) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = description;
         this.position = position;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -50,6 +50,12 @@ public class Period {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public String toString() {
+        return "C " + startDate +
+                " по " + endDate + "\n" + position +
+                "\n" + description;
     }
 
     @Override
