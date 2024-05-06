@@ -133,7 +133,6 @@ public class ResumeTestData {
     }
 
     public void printTextSection(AbstractSection section){
-        System.out.println("Type: TextSections");
         System.out.println(((TextSections) section).getContent());
     }
 

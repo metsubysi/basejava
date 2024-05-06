@@ -21,10 +21,11 @@ public abstract class AbstractArrayStorageTest {
     private final String UUID3 = "uuid3";
     private final String UUID4 = "uuid4";
     private final String DUMMY = "dummy";
-    private final Resume resume1 = new Resume(UUID1);
-    private final Resume resume2 = new Resume(UUID2);
-    private final Resume resume3 = new Resume(UUID3);
-    private final Resume resume4 = new Resume(UUID4);
+    private Resume resume1;
+    private Resume resume2;
+    private Resume resume3;
+    private Resume resume4;
+
 
     protected AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -32,6 +33,11 @@ public abstract class AbstractArrayStorageTest {
     @Before
     public void setUp() throws Exception {
         storage.clear();
+        ResumeTestData rts = new ResumeTestData();
+        resume1 = rts.createResume(UUID1, "Григорий Кислин");
+        resume2 = rts.createResume(UUID2, "Смирнов Алексей");
+        resume3 = rts.createResume(UUID3, "Козлов Дмитрий");
+        resume4 = rts.createResume(UUID4, "Попова Екатерина");
         storage.save(resume1);
         storage.save(resume2);
         storage.save(resume3);
@@ -50,9 +56,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void update() throws Exception {
-        Resume newResume = new Resume(UUID1);
+        Resume newResume = new Resume("Григорий Кислин");
         storage.update(newResume);
-        assertEquals(newResume, storage.get(UUID1));
+        assertEquals(newResume, storage.get("Григорий Кислин"));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -65,8 +71,8 @@ public abstract class AbstractArrayStorageTest {
         List<Resume> list = storage.getAllSorted();
         assertEquals(3, list.size());
         assertEquals(resume1, list.get(0));
-        assertEquals(resume2, list.get(1));
-        assertEquals(resume3, list.get(2));
+        assertEquals(resume3, list.get(1));
+        assertEquals(resume2, list.get(2));
     }
 
     @Test
@@ -74,7 +80,7 @@ public abstract class AbstractArrayStorageTest {
         assertSize(3);
         storage.save(resume4);
         assertSize(4);
-        storage.get(UUID4);
+        storage.get("Попова Екатерина");
         assertGet(resume4);
     }
 

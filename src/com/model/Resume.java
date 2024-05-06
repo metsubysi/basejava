@@ -24,12 +24,12 @@ public class Resume implements Comparable<Resume>{
         this.uuid = "";
     }
 
-    public String getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 
-    public String getFullName() {
-        return fullName;
+    public UUID getFullName() {
+        return this.fullName;
     }
 
     public void addContact(ContactType type, String value) {
