@@ -17,7 +17,7 @@ public abstract class AbstractFileStorage {
         }
     }
 
-    public Resume loadResume(UUID uuid) {
+    public Resume loadResume(String uuid) {
         String fileName = generateFileName(uuid);
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
             Resume resume = (Resume) ois.readObject();
@@ -29,7 +29,7 @@ public abstract class AbstractFileStorage {
         }
     }
 
-    private String generateFileName(UUID uuid) {
+    private String generateFileName(String uuid) {
         return uuid.toString() + ".txt";
     }
 

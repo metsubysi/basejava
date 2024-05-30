@@ -1,9 +1,9 @@
 package com.model;
 
-public class TextSections extends AbstractSection{
+public class TextSection extends AbstractSection{
     private String content;
 
-    public TextSections(String content) {
+    public TextSection(String content) {
         this.content = content;
     }
 

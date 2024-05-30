@@ -7,9 +7,10 @@ import com.model.Resume;
  */
 public class ArrayStorage extends AbstractArrayStorage {
 
-    protected Integer getSearchKey(String fullName) {
+    @Override
+    protected Integer getSearchKey(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (fullName.equals(storage[i].getFullName())) {
+            if (uuid.equals(storage[i].getUuid())) {
                 return i;
             }
         }
@@ -17,10 +18,11 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    void saveResume(Resume r) {
+    void saveResume(Resume r, int index) {
         storage[size] = r;
     }
 
+    @Override
     void deleteResume(int index) {
         storage[index] = storage[size - 1];
     }

@@ -17,7 +17,7 @@ public class ResumeTestData {
         System.out.println();
         for (SectionType type : SectionType.values()) {
             AbstractSection section = resume.getSection(type);
-            if (section instanceof TextSections) {
+            if (section instanceof TextSection) {
                 System.out.println("___________________");
                 printTextSection(section);
             } else if (section instanceof ListSection) {
@@ -41,9 +41,9 @@ public class ResumeTestData {
         resume.addContact(ContactType.GITHUB, "Профиль GitHub");
 
         // Adding sections
-        TextSections personalSection = new TextSections("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
+        TextSection personalSection = new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
         resume.addSection(SectionType.PERSONAL, personalSection);
-        TextSections objectiveSection = new TextSections("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
+        TextSection objectiveSection = new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
         resume.addSection(SectionType.OBJECTIVE, objectiveSection);
         ListSection achievementSection = new ListSection(getAchievementsList());
         resume.addSection(SectionType.ACHIEVEMENT, achievementSection);
@@ -133,7 +133,7 @@ public class ResumeTestData {
     }
 
     public void printTextSection(AbstractSection section){
-        System.out.println(((TextSections) section).getContent());
+        System.out.println(((TextSection) section).getContent());
     }
 
     public void printListSection(AbstractSection section) {

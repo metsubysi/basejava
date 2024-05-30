@@ -9,10 +9,10 @@ public class ListStorage extends AbstractStorage {
 
     private final List<Resume> storage = new ArrayList<>();
 
-    public Object getSearchKey(String fullName) {
+    public Object getSearchKey(String uuid) {
         for (int i = 0; i < storage.size(); i++) {
             Resume r = storage.get(i);
-            if (r.getFullName().equals(fullName)) {
+            if (r.getUuid().equals(uuid)) {
                 return i;
             }
         }
@@ -29,21 +29,23 @@ public class ListStorage extends AbstractStorage {
         storage.set((Integer) index, r);
     }
 
+    @Override
     Resume doGet(Object index) {
        return storage.get(((Integer) index));
     }
 
     @Override
-    void doSave(Resume r) {
+    void doSave(Resume r, Object index) {
         storage.add(r);
     }
 
+    @Override
     public void clear() {
         storage.clear();
     }
 
     @Override
-    protected boolean isExisting(Object index) {
+    protected boolean isExist(Object index) {
         return index != null;
     }
 

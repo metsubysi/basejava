@@ -31,12 +31,12 @@ public class MapStorage extends AbstractStorage{
     }
 
     @Override
-    void doSave(Resume r) {
-        storage.put(r.getFullName(), r);
+    void doSave(Resume r, Object index) {
+        storage.put(r.getUuid(), r);
     }
 
     @Override
-    boolean isExisting(Object index) {
+    protected boolean isExist(Object index) {
         return index != null;
     }
 
