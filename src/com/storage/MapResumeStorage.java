@@ -4,37 +4,37 @@ import com.model.Resume;
 
 import java.util.*;
 
-public class MapStorage extends AbstractStorage<Resume>{
+public class MapResumeStorage extends AbstractStorage<String> {
 
     private final Map<String, Resume> storage = new HashMap<>();
 
-    public Resume getSearchKey(String uuid) {
+    public String getSearchKey(String uuid) {
+        return uuid;
+    }
+
+    @Override
+    void doDelete(String uuid) {
+        storage.remove(uuid);
+    }
+
+    @Override
+    void doUpdate(Resume r, String uuid) {
+        storage.put(uuid, r);
+    }
+
+    @Override
+    Resume doGet(String uuid) {
         return storage.get(uuid);
     }
 
     @Override
-    void doDelete(Resume r) {
-        storage.remove(r.getUuid());
+    void doSave(Resume r, String uuid) {
+        storage.put(uuid, r);
     }
 
     @Override
-    void doUpdate(Resume r1, Resume resume) {
-        storage.put(r1.getUuid(), r1);
-    }
-
-    @Override
-    Resume doGet(Resume r) {
-        return r;
-    }
-
-    @Override
-    void doSave(Resume r1, Resume resume) {
-        storage.put(r1.getUuid(), r1);
-    }
-
-    @Override
-    protected boolean isExist(Resume r) {
-        return r != null;
+    protected boolean isExist(String uuid)  {
+        return storage.containsKey(uuid);
     }
 
     @Override

@@ -47,10 +47,10 @@ public abstract class AbstractStorageTest {
         List<Organization> experienceList1 = new ArrayList<>();
         LocalDate startDateExperience = LocalDate.of(2010, 8, 2);
         LocalDate endDateExperience = LocalDate.of(2019, 6, 9);
-        List<Period> periodsExperience = new ArrayList<>();
+        List<Position> periodsExperience = new ArrayList<>();
         String descriptionExperience = "Description organization of education";
         String positionExperience = "";
-        periodsExperience.add(new Period(startDateExperience, endDateExperience,
+        periodsExperience.add(new Position(startDateExperience, endDateExperience,
                 descriptionExperience, positionExperience));
         Organization organizationExperience = new Organization("Luxoft", "http:" +
                 "//www.luxoft-training.ru/training/catalog/course.html?ID=22366",
@@ -60,10 +60,10 @@ public abstract class AbstractStorageTest {
         List<Organization> experienceList2 = new ArrayList<>();
         LocalDate startDateExperience2 = LocalDate.of(2010, 8, 2);
         LocalDate endDateExperience2 = LocalDate.of(2019, 6, 9);
-        List<Period> periodsExperience2 = new ArrayList<>();
+        List<Position> periodsExperience2 = new ArrayList<>();
         String descriptionExperience2 = "Description organization of education";
         String positionExperience2 = "";
-        periodsExperience2.add(new Period(startDateExperience2, endDateExperience2,
+        periodsExperience2.add(new Position(startDateExperience2, endDateExperience2,
                 descriptionExperience2, positionExperience2));
         Organization organizationExperience2 = new Organization("Luxoft", "http:" +
                 "//www.luxoft-training.ru/training/catalog/course.html?ID=22366",
@@ -73,10 +73,10 @@ public abstract class AbstractStorageTest {
         List<Organization> educationList = new ArrayList<>();
         LocalDate startDateEducation = LocalDate.of(2011, 3, 1);
         LocalDate endDateEducation = LocalDate.of(2012, 4, 5);
-        List<Period> periodsEducation = new ArrayList<>();
+        List<Position> periodsEducation = new ArrayList<>();
         String descriptionOrganization = "Description organization of education";
         String positionOrganization = "";
-        periodsEducation.add(new Period(startDateEducation, endDateEducation,
+        periodsEducation.add(new Position(startDateEducation, endDateEducation,
                 descriptionOrganization, positionOrganization));
         Organization organizationEducation = new Organization("Luxoft", "http:" +
                 "//www.luxoft-training.ru/training/catalog/course.html?ID=22366",

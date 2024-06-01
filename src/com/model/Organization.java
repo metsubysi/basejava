@@ -7,13 +7,13 @@ import java.util.Objects;
 public class Organization {
     private String title;
     private String website;
-    private List<Period> periods;
+    private List<Position> periods;
 
     public Organization() {
         this.periods = new ArrayList<>();
     }
 
-    public Organization(String title, String website, List<Period> periods) {
+    public Organization(String title, String website, List<Position> periods) {
         this.title = title;
         this.website = website;
         this.periods = periods;
@@ -35,11 +35,11 @@ public class Organization {
         this.website = website;
     }
 
-    public List<Period> getPeriods() {
+    public List<Position> getPeriods() {
         return periods;
     }
 
-    public void setPeriods(List<Period> periods) {
+    public void setPeriods(List<Position> periods) {
         this.periods = periods;
     }
 

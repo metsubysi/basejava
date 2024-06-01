@@ -9,6 +9,6 @@ import org.junit.runners.Suite;
         SortedArrayStorageTest.class,
         ListStorageTest.class,
         MapStorageTest.class,
-        Map2StorageTest.class} )
+        MapResumeStorageTest.class} )
 public class SuiteTestClass {
 }

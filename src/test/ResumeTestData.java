@@ -96,8 +96,8 @@ public class ResumeTestData {
         String positionOrganization = "Старший разработчик (backend)";
         LocalDate startDate = LocalDate.of(2014, 10, 1);
         LocalDate endDate = LocalDate.of(2016, 1, 1);
-        List<Period> periods = new ArrayList<>();
-        periods.add(new Period(startDate, endDate, descriptionOrganization,
+        List<Position> periods = new ArrayList<>();
+        periods.add(new Position(startDate, endDate, descriptionOrganization,
                 positionOrganization));
         Organization organization = new Organization("Wrike",
                 "https://www.wrike.com/", periods);
@@ -112,8 +112,8 @@ public class ResumeTestData {
         String positionOrganization = "";
         LocalDate startDate = LocalDate.of(2011, 3, 1);
         LocalDate endDate = LocalDate.of(2011, 4, 1);
-        List<Period> periodsEducation = new ArrayList<>();
-        periodsEducation.add(new Period(startDate, endDate, descriptionOrganization,
+        List<Position> periodsEducation = new ArrayList<>();
+        periodsEducation.add(new Position(startDate, endDate, descriptionOrganization,
                 positionOrganization));
         Organization organizationEducation = new Organization("Luxoft", "http:" +
                 "//www.luxoft-training.ru/training/catalog/course.html?ID=22366",

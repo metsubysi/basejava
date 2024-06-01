@@ -34,7 +34,7 @@ public class OrganizationSection extends AbstractSection{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Organization org : organizations) {
-            for (Period period : org.getPeriods()) {
+            for (Position period : org.getPeriods()) {
                 sb.append(org.toString()).append("");
                 sb.append(period.toString()).append("\n");
             }

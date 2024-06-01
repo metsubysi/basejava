@@ -3,17 +3,17 @@ package com.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Period {
+public class Position {
     private LocalDate startDate;
     private LocalDate endDate;
     private String description;
     private String position;
 
-    public Period() {
+    public Position() {
         // Default constructor
     }
 
-    public Period(LocalDate startDate, LocalDate endDate, String description, String position) {
+    public Position(LocalDate startDate, LocalDate endDate, String description, String position) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = description;
@@ -62,7 +62,7 @@ public class Period {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Period period = (Period) o;
+        Position period = (Position) o;
         return Objects.equals(startDate, period.startDate) &&
                  Objects.equals(endDate, period.endDate) &&
                 Objects.equals(description, period.description) &&
