@@ -2,19 +2,21 @@ package com.storage;
 
 import com.exception.StorageException;
 import com.model.Resume;
+import com.storage.serializer.StreamSerializer;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-public abstract class AbstractFileStorage extends AbstractStorage<File> {
-
+public class FileStorage extends AbstractStorage<File> {
     private File directory;
 
-    protected AbstractFileStorage(File directory) {
+    private StreamSerializer streamSerializer;
+
+    public FileStorage(File directory, StreamSerializer streamSerializer) {
         Objects.requireNonNull(directory, "directory must not be null");
+        this.streamSerializer = streamSerializer;
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not a directory");
         }
@@ -26,9 +28,12 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        File[] files = checkedListFiles();
-        for (File file : files) {
-            doDelete(file);
+        File[] files = directory.listFiles();
+        //System.out.println(directory);
+        if (files != null) {
+            for (File file : files) {
+                doDelete(file);
+            }
         }
     }
 
@@ -59,9 +64,8 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected void doUpdate(Resume r, File searchKey) {
-
         try {
-            doWrite(r, searchKey);
+            streamSerializer.doWrite(r, new BufferedOutputStream(new FileOutputStream(searchKey)));
         } catch (IOException e) {
             throw new StorageException("I/O error", searchKey.getName());
         }
@@ -76,18 +80,19 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected void doSave(Resume r, File file) {
         try {
             file.createNewFile();
-            doWrite(r, file);
         } catch (IOException e) {
-            throw new StorageException("I/O error", file.getName());
+            throw new StorageException("I/O error", file.getName(), e);
         }
+        doUpdate(r,file);
     }
 
     @Override
     protected Resume doGet(File file) {
+        //System.out.println(file.getName());
         try {
-            return doRead(file);
+            return streamSerializer.doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
-            throw new StorageException("I/O error", file.getName());
+            throw new StorageException("I/O error", file.getName(), e);
         }
     }
 
@@ -97,8 +102,4 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             throw new StorageException("Failed to delete file", file.getName());
         }
     }
-
-    protected abstract void doWrite(Resume r, File file) throws IOException;
-
-    protected abstract Resume doRead(File file) throws IOException;
 }
