@@ -3,6 +3,9 @@ package storage;
 import model.Resume;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 import Exception.*;
 
 /**
@@ -53,8 +56,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, count);
+    public List<Resume> getAllSorted() {
+        return Arrays.stream(storage, 0, size())
+                .sorted(Comparator.comparing(Resume::getUuid))
+                .toList();
     }
 
     @Override

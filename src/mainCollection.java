@@ -64,6 +64,12 @@ public class mainCollection {
         end = System.currentTimeMillis();
         System.out.println("SUM = " + sum + "; Время первого цикла (keySet): " + (end - start) + " ms");
 
+        List<Resume>  resume = Arrays.asList(R1, R2, R3, R4, R5);
+        resume.remove(1);
+        for(Resume r : resume) {
+            System.out.println(r);
+        }
+
 
     }
 }

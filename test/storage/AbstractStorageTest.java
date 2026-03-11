@@ -11,6 +11,8 @@ import Exception.NotExistStorageException;
 import Exception.ExistStorageException;
 import Exception.StorageException;
 
+import java.util.List;
+
 public abstract class AbstractStorageTest {
 
     protected AbstractStorageTest(Storage storage) {
@@ -65,13 +67,13 @@ public abstract class AbstractStorageTest {
 
     @org.junit.Test
     public void getAll() throws Exception {
-        Resume [] array = storage.getAll();
-        assertEquals(5, array.length);
-        assertEquals(R1, array[0]);
-        assertEquals(R2, array[1]);
-        assertEquals(R3, array[2]);
-        assertEquals(R4, array[3]);
-        assertEquals(R5, array[4]);
+        List<Resume> array = storage.getAllSorted();
+        assertEquals(5, array.size());
+        assertEquals(R1, array.get(0));
+        assertEquals(R2, array.get(1));
+        assertEquals(R3, array.get(2));
+        assertEquals(R4, array.get(3));
+        assertEquals(R5, array.get(4));
     }
 
     @org.junit.Test

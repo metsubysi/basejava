@@ -3,6 +3,7 @@ package storage;
 import model.Resume;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import Exception.NotExistStorageException;
 import Exception.ExistStorageException;
@@ -59,8 +60,13 @@ public class MapStorage extends AbstractStorage{
     }
 
     @Override
-    public Resume[] getAll() {
-        return map.values().toArray(new Resume[map.size()]);
+    public List<Resume> getAllSorted() {
+        List<Resume> list;
+        list = map.values()
+                .stream()
+                .sorted(Comparator.comparing(Resume::getUuid))
+                .toList();
+        return list;
     }
 
     @Override

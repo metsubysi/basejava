@@ -1,6 +1,9 @@
 package storage;
 
 import model.Resume;
+
+import java.util.List;
+
 /**
  * Array based storage for Resumes
  */
@@ -11,6 +14,6 @@ public interface Storage {
     void save(Resume r);
     Resume get(String uuid);
     void delete(String uuid);
-    Resume[] getAll();
+    List<Resume> getAllSorted();
     int size();
 }
