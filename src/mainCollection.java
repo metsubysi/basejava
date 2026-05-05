@@ -45,7 +45,7 @@ public class mainCollection {
 
         Map<String, Resume> map = new HashMap<>();
         for (int i = 0; i<1000000; i++) {
-            map.put("uuid_" + i, new Resume());
+            map.put("uuid_" + i, new Resume("Максим Морозов"));
         }
         long start = System.currentTimeMillis();
         int sum = 0;

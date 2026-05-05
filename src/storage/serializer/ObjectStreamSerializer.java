@@ -1,15 +1,10 @@
-package storage;
+package storage.serializer;
 
 import model.Resume;
-import storage.serializer.StreamSerializer;
 
 import java.io.*;
 
-public class ObjectStreamStorage implements StreamSerializer {
-
-    protected ObjectStreamStorage(File directory) {
-        super(directory);
-    }
+public class ObjectStreamSerializer implements StreamSerializer {
 
     @Override
     public void doWrite(Resume r, OutputStream os) throws IOException {

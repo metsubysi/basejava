@@ -3,55 +3,38 @@ package storage;
 import model.Resume;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-import Exception.NotExistStorageException;
-import Exception.ExistStorageException;
-
-public class MapStorage extends AbstractStorage{
+public class MapStorage extends AbstractStorage<String>{
 
     private Map<String, Resume> map = new LinkedHashMap<>();
     @Override
-    protected Object getSearchKey(String uuid) {
-        if (map.containsKey(uuid)) {
-            return uuid;
-        }
-        return null;
+    protected String getSearchKey(String uuid) {
+        return uuid;
     }
 
     @Override
-    protected void doUpdate(Resume r, Object searchKey) {
-        map.put((String) searchKey, r);
+    protected void doUpdate(Resume r, String uuid) {
+        map.put(uuid, r);
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return searchKey != null;
+    protected boolean isExist(String uuid) {
+        return map.containsKey(uuid);
     }
 
     @Override
-    protected void doSave(Resume r, Object searchKey) {
-        map.put(r.getUuid(), r);
+    protected void doSave(Resume r, String uuid) {
+        map.put(uuid, r);
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
-        map.remove(searchKey.toString());
+    protected void doDelete(String uuid) {
+        map.remove(uuid);
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        return map.get((String) searchKey);
-    }
-
-    @Override
-    protected void insertElement(Resume r, int index) {
-
-    }
-
-    @Override
-    protected void fillDeletedElement(int index) {
-
+    protected Resume doGet(String uuid) {
+        return map.get(uuid);
     }
 
     @Override
@@ -60,13 +43,8 @@ public class MapStorage extends AbstractStorage{
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> list;
-        list = map.values()
-                .stream()
-                .sorted(Comparator.comparing(Resume::getUuid))
-                .toList();
-        return list;
+    public List<Resume> doCopyAll() {
+        return new ArrayList<>(map.values());
     }
 
     @Override

@@ -2,8 +2,8 @@ package storage;
 import storage.serializer.ObjectStreamSerializer;
 import storage.serializer.XmlStreamSerializer;
 
-public class PathStorageTest extends AbstractStorageTest{
-    public PathStorageTest() {
-        super(new PathStorage(STORAGE_DIR.getAbsolutePath(), new ObjectStreamSerializer()));
+public class XmlPathStorageTest extends AbstractStorageTest{
+    public XmlPathStorageTest() {
+        super(new PathStorage(STORAGE_DIR.getAbsolutePath(), new XmlStreamSerializer()));
     }
 }

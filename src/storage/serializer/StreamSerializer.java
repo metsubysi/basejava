@@ -1,2 +1,12 @@
-package storage.serializer;public interface StreamSerializer {
+package storage.serializer;
+
+import model.Resume;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+public interface StreamSerializer {
+    void doWrite(Resume r, OutputStream os) throws IOException;
+    Resume doRead(InputStream is) throws IOException;
 }

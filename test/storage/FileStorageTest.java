@@ -2,8 +2,8 @@ package storage;
 
 import storage.serializer.ObjectStreamSerializer;
 
-public class PathStorageTest extends AbstractStorageTest{
-    public PathStorageTest() {
-        super(new PathStorage(STORAGE_DIR, new ObjectStreamSerializer()));
+public class FileStorageTest extends AbstractStorageTest{
+    public FileStorageTest() {
+        super(new FileStorage(STORAGE_DIR, new ObjectStreamSerializer()));
     }
 }

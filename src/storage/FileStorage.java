@@ -10,13 +10,13 @@ import java.util.Objects;
 import Exception.StorageException;
 import storage.serializer.StreamSerializer;
 
-public class AbstractFileStorage extends AbstractStorage<File> {
+public class FileStorage extends AbstractStorage<File> {
     private File directory;
     private StreamSerializer streamSerializer;
 
-    protected AbstractFileStorage(File directory, StreamSerializer streamSerializer) {
-        this.streamSerializer = streamSerializer;
+    protected FileStorage(File directory, StreamSerializer streamSerializer) {
         Objects.requireNonNull(directory, "directory must not be null");
+        this.streamSerializer = streamSerializer;
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
         }
